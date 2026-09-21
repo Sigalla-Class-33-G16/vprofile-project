@@ -22,6 +22,21 @@ pipeline {
             steps {
                 sh 'mvn -s settings.xml -DskipTests install'
             }
+            post {
+    success {
+        echo 'Maven build successful.'
+        archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+    }
+
+    failure {
+        echo 'Maven build failed.'
+    }
+
+    always {
+        echo 'Cleaning workspace...'
+        cleanWs()
+    }
+}
         }
     }
 }
