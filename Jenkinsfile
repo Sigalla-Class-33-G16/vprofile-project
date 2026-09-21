@@ -34,7 +34,7 @@ pipeline {
 
     always {
         echo 'Cleaning workspace...'
-        cleanWs()
+        cleans()
     }
 }
         }
