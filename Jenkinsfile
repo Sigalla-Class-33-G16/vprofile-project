@@ -24,18 +24,10 @@ pipeline {
             }
             post {
     success {
-        echo 'Maven build successful.'
-        archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+        echo 'Now Archiving'.
+        archiveArtifacts artifacts: '**/*.war'
     }
 
-    failure {
-        echo 'Maven build failed.'
-    }
-
-    always {
-        echo 'Cleaning workspace...'
-        cleans()
-    }
 }
         }
     }
