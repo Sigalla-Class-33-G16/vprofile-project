@@ -184,7 +184,7 @@ pipeline {
             echo 'Pipeline failed.'
         }
         remarks {
-            echo 'completed.'
+            echo 'success.'
             }
     }
 }
