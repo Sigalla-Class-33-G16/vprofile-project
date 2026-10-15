@@ -183,5 +183,8 @@ pipeline {
         failure {
             echo 'Pipeline failed.'
         }
+        remarks {
+            echo 'completed.'
+            }
     }
 }
