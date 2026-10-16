@@ -28,7 +28,7 @@ pipeline {
             post {
                 success {
                     echo 'Maven build successful.'
-                    echo 'Now archiving artifacts.'
+                    echo 'Archiving artifacts.'
 
                     archiveArtifacts(
                         artifacts: 'target/*.war',
@@ -86,6 +86,39 @@ pipeline {
                             error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
                         }
                     }
+                }
+            }
+        }
+
+        stage('UploadArtifact') {
+            steps {
+                script {
+                    def warFile = sh(
+                        script: "find target -maxdepth 1 -type f -name '*.war' | head -n 1",
+                        returnStdout: true
+                    ).trim()
+
+                    if (!warFile) {
+                        error 'No WAR artifact found in target/'
+                    }
+
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
+                        groupId: 'com.example',
+                        version: "1.0.${env.BUILD_NUMBER}",
+                        repository: "${RELEASE_REPO}",
+                        credentialsId: "${NEXUS_LOGIN}",
+                        artifacts: [
+                            [
+                                artifactId: 'vprofileapp',
+                                classifier: '',
+                                file: warFile,
+                                type: 'war'
+                            ]
+                        ]
+                    )
                 }
             }
         }
