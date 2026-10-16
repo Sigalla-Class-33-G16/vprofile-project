@@ -63,14 +63,14 @@ pipeline {
                 withSonarQubeEnv('sonarserver') {
                     sh '''
                         ${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=vprofile \
-                        -Dsonar.projectName=vprofile \
-                        -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources=src/ \
-                        -Dsonar.java.binaries=target/classes \
-                        -Dsonar.junit.reportPaths=target/surefire-reports/ \
-                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
-                        -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+                          -Dsonar.projectKey=vprofile \
+                          -Dsonar.projectName=vprofile \
+                          -Dsonar.projectVersion=1.0 \
+                          -Dsonar.sources=src/ \
+                          -Dsonar.java.binaries=target/classes \
+                          -Dsonar.junit.reportPaths=target/surefire-reports/ \
+                          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+                          -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
                     '''
                 }
             }
@@ -110,14 +110,12 @@ pipeline {
                         version: "1.0.${env.BUILD_NUMBER}",
                         repository: "${RELEASE_REPO}",
                         credentialsId: "${NEXUS_LOGIN}",
-                        artifacts: [
-                            [
-                                artifactId: 'vprofileapp',
-                                classifier: '',
-                                file: warFile,
-                                type: 'war'
-                            ]
-                        ]
+                        artifacts: [[
+                            artifactId: 'vprofileapp',
+                            classifier: '',
+                            file: warFile,
+                            type: 'war'
+                        ]]
                     )
                 }
             }
