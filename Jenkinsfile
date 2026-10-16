@@ -108,15 +108,15 @@ pipeline {
                         nexusVersion: 'nexus3',
                         protocol: 'http',
                         nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
-                        groupId: 'com.example',
-                        version: "1.0.${env.BUILD_NUMBER}",
+                        groupId: 'QA',
+                        version: "1.0.${env.BUILD_NUMBER} : ${env.BUILD_TIMESTAMP}" ,
                         repository: "${RELEASE_REPO}",
                         credentialsId: "${NEXUS_LOGIN}",
                         artifacts: [
                             [
                                 artifactId: 'vprofileapp',
                                 classifier: '',
-                                file: warFile,
+                                file: 'target/vprofile-v2.war',
                                 type: 'war'
                             ]
                         ]
