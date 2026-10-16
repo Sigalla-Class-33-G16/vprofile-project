@@ -9,8 +9,6 @@ pipeline {
 
     environment {
         SNAP_REPO      = 'vprofile-snapshot'
-        NEXUS_USER     = 'admin'
-        NEXUS_PASS     = 'Siga123'
         RELEASE_REPO   = 'vprofile-release'
         CENTRAL_REPO   = 'vpro-maven-central'
         NEXUSIP        = '172.31.2.130'
@@ -109,14 +107,14 @@ pipeline {
                         protocol: 'http',
                         nexusUrl: "${NEXUSIP}:${NEXUSPORT}",
                         groupId: 'QA',
-                        version: "1.0.${env.BUILD_NUMBER} : ${env.BUILD_TIMESTAMP}" ,
+                        version: "1.0.${env.BUILD_NUMBER}",
                         repository: "${RELEASE_REPO}",
                         credentialsId: "${NEXUS_LOGIN}",
                         artifacts: [
                             [
                                 artifactId: 'vprofileapp',
                                 classifier: '',
-                                file: 'target/vprofile-v2.war',
+                                file: warFile,
                                 type: 'war'
                             ]
                         ]
